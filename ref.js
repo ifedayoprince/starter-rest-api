@@ -1,6 +1,7 @@
-const express = require('express')
-const app = express()
-const db = require('@cyclic.sh/dynamodb')
+import express from 'express';
+import db from '@cyclic.sh/dynamodb';
+
+const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -68,5 +69,5 @@ app.use('*', (req, res) => {
 // Start the server
 const port = process.env.PORT || 3000
 app.listen(port, () => {
-  console.log(`index.js listening on ${port}`)
+  console.log(`src/index.js listening on ${port}`)
 })
