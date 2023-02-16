@@ -1,15 +1,15 @@
 import express from 'express';
-import db from '@cyclic.sh/dynamodb';
-import { router as core-router } from './core-router.js';
-import { router as pine-router } from './pine-router.js';
+// import db from '@cyclic.sh/dynamodb';
+// import { router as core-router } from './core-router.js';
+// import { router as pine-router } from './pine-router.js';
 import { generateAccessToken } from "./auth.js";
 
 const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/core', core-router);
-app.use('/pine', pine-router);
+// app.use('/core', core-router);
+// app.use('/pine', pine-router);
 
 // Create new bearer token
 app.post("/super-user", (req, res) => {
