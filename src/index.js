@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 app.post("/super-user", (req, res) => {
 	const username = req.body.username;
     const password = req.body.password;
+    console.log(process.env);
 	console.log(password, username, req.body);
 	try {
 		if(password != process.env.SUPER_USER) throw new Error();
