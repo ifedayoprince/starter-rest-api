@@ -15,9 +15,9 @@ app.use('/pine', pineRouter);
 app.post("/super-user", (req, res) => {
 	const username = req.body.username;
     const password = req.body.password;
-	console.log(password, username, process.env.SUPER_PASSWORD);
+	
 	try {
-		if(password != process.env.SUPER_PASSWORD) throw new Error();
+		if(password != process.env.SUPER_USER && password) throw new Error();
 		
 		const token = generateAccessToken({username});
 		res.send({ token }); 

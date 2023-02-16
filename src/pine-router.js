@@ -76,12 +76,10 @@ router.post('/protocol', authenticateUser, async (req, res) => {
 		}
 		
 		await protocolsCollection.set(protoObject.id, protoObject);
-		
-		res.send(protoObject.id);
-	} catch (e) {
+	} catch (e) {	
 		console.log(`POST /protocol `, e.message);
 		res.sendStatus(401);
-	}
+	} 
 })
 
 // Retrieve a url of the protocol stored on the server
