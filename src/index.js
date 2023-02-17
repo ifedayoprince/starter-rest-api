@@ -2,9 +2,9 @@ import express from 'express';
 // import db from '@cyclic.sh/dynamodb';
 import { router as coreRouter } from './core-router.js';
 import { router as pineRouter } from './pine-router.js';
-import { generateAccessToken } from "./auth.js";
+import { generateAccessToken, authenticateUser} from "./auth.js";
 import fillDataBaseWithPines from './../fill-db.js';
-
+ 
 const app = express();
 
 app.use(express.json())
