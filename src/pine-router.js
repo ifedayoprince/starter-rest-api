@@ -32,6 +32,7 @@ pRouter.post('/:id', authenticateUser, async (req, res) => {
 		if(!pineConfig.name) throw new Error();
 		
 		pineObject = {...pineConfig};
+		pineObject.id = id;
 		
 		await pinesCollection.set(id, pineObject);
 		
@@ -39,7 +40,6 @@ pRouter.post('/:id', authenticateUser, async (req, res) => {
 	} catch (e) {
 		console.log(e)
 		console.log(`POST /${id} `, e.message);
-		res.sendStatus(500);
 	}
 });
 
@@ -55,6 +55,8 @@ pRouter.get('/form/:id', authenticateUser, async (req, res) => {
 			url: `${pineLnk}/pine-input.json`, 
 			responseType: "json"
 		})).data;
+		
+		pineInput.id = id;
 		
 		res.send(pineInput);
 	} catch (e) {
