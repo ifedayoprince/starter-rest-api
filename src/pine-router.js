@@ -16,6 +16,8 @@ const pinesCollection = db.collection("pines");
 const notesCollection = db.collection("notes");
 const protocolsCollection = db.collection('protocols');
 
+const sUid = short();
+
 // Links an ID to the url of a hosted pine
 pRouter.post('/:id', authenticateUser, async (req, res) => {
 	const id = req.params.id;
@@ -83,7 +85,7 @@ pRouter.post('/protocol/new', authenticateUser, async (req, res) => {
 		await protocolsCollection.set(protoObject.id, protoObject);
 		res.send({
 			id: protoObject.id, 
-			shortId: short().fromUUID(protoObject.id)
+			shortId: sUid.fromUUID(protoObject.id)
 		});
 	} catch (e)	{
 		console.log(`POST /protocol `, e.message);
@@ -96,7 +98,7 @@ pRouter.get('/protocol/:id', authenticateUser, async (req, res) => {
 	let id = req.params.id;
 	
 	try {
-		let url = (await protocolsCollection.get(id)).props;
+		let url = (await protocolsCollection.get(sUid.toUUID(id))).props;
 		
 		res.send(url);
 	} catch (e) {
