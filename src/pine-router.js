@@ -72,9 +72,11 @@ pRouter.get('/form/:id', authenticateUser, async (req, res) => {
 pRouter.post('/protocol', authenticateUser, async (req, res) => {
 	const proto = req.body;
 	try {
+		let id = uuidv4();
+		
 		let protoObject = {
 			protocol: proto, 
-			id: uuidv4()
+			id
 		}
 		
 		await protocolsCollection.set(protoObject.id, protoObject);
