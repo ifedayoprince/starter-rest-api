@@ -5,6 +5,7 @@ import DynamoDb from '@cyclic.sh/dynamodb';
 import { v4 as uuidv4 } from "uuid";
 import { authenticateUser } from './auth.js';
 import axios from 'axios';
+import short from 'short-uuid';
 
 // Initialize Express router
 export const pRouter = Router();
@@ -80,9 +81,11 @@ pRouter.post('/protocol/new', authenticateUser, async (req, res) => {
 		}
 		
 		await protocolsCollection.set(protoObject.id, protoObject);
-		res.send(protoObject.id);
+		res.send({
+			id: protoObject.id, 
+			shortId: short().fromUUID(protoObject.id)
+		});
 	} catch (e)	{
-		console.log(e)
 		console.log(`POST /protocol `, e.message);
 		res.sendStatus(500);
 	} 
