@@ -16,7 +16,12 @@ export const pineAccessor = () => {
 	};
 };
 
-async function fillDataBaseWithPines(res) {
+async function fillDataBaseWithPines(res, password) {
+	if(password != process.env.SUPER_USER) {
+		console.log('Super User permission required.')
+		res.sendStatus(401);
+		return ;
+	} 
 	const totalPines = 5;
 	const randomPines = Array(totalPines).fill({}).map(pineAccessor);
 

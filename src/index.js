@@ -16,7 +16,7 @@ app.use('/core', coreRouter);
 
 // Fill database
 app.post('/fill-db', authenticateUser, async (req, res) => {
-	fillDataBaseWithPines(res);
+	fillDataBaseWithPines(res, req.body.password);
 })
 
 // Create new bearer token
