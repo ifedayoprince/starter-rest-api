@@ -43,7 +43,7 @@ pRouter.post('/:id', authenticateUser, async (req, res) => {
 });
 
 // Get the input form details 
-pRouter.get('form/:id', authenticateUser, async (req, res) => {
+pRouter.get('/form/:id', authenticateUser, async (req, res) => {
 	const id = req.params.id;
 	
 	try {
