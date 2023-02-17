@@ -69,7 +69,7 @@ pRouter.get('/form/:id', authenticateUser, async (req, res) => {
 })
 
 // Store the Pino Protocol on the server and return an id
-pRouter.post('/protocol', authenticateUser, async (req, res) => {
+pRouter.post('/protocol/new', authenticateUser, async (req, res) => {
 	const proto = req.body;
 	try {
 		let id = uuidv4();
@@ -102,20 +102,6 @@ pRouter.get('/protocol/:id', authenticateUser, async (req, res) => {
 	}
 })
 
-// Retrieve text stored on the server 
-pRouter.get('/notes/:id', authenticateUser, async (req, res) => {
-	const id = req.params.id;
-	
-	try {
-		let note = (await notesCollection.get(id)).props; 
-		
-		res.send(note);
-	} catch (e) {
-		console.log(`GET /notes/${id} `, e.message);
-		res.sendStatus(500);
-	}
-})
-
 // Store a note on the server
 pRouter.post('/notes/new', authenticateUser, async (req, res) => {
 	var body = req.body;
@@ -132,6 +118,20 @@ pRouter.post('/notes/new', authenticateUser, async (req, res) => {
 	} catch (e) {
 		// console.log(e);
 		console.log(`POST /notes `, e.message);
+		res.sendStatus(500);
+	}
+}) 
+
+// Retrieve text stored on the server 
+pRouter.get('/notes/:id', authenticateUser, async (req, res) => {
+	const id = req.params.id;
+	
+	try {
+		let note = (await notesCollection.get(id)).props; 
+		
+		res.send(note);
+	} catch (e) {
+		console.log(`GET /notes/${id} `, e.message);
 		res.sendStatus(500);
 	}
 })
