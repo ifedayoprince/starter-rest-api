@@ -33,12 +33,13 @@ pRouter.post('/:id', authenticateUser, async (req, res) => {
 		
 		pineObject = {...pineConfig};
 		
-		await bikesCollection.set(id, pineObject);
+		await pinesCollection.set(id, pineObject);
 		
 		res.send(pineObject);
 	} catch (e) {
+		console.log(e)
 		console.log(`POST /${id} `, e.message);
-		res.sendStatus(404);
+		res.sendStatus(500);
 	}
 });
 
@@ -47,17 +48,16 @@ pRouter.get('/form/:id', authenticateUser, async (req, res) => {
 	const id = req.params.id;
 	
 	try {
-		const { url } = (await pinesCollection.get(id)).props;
+		const { url: pineLnk } = (await pinesCollection.get(id)).props;
 		
 		const pineInput = (await axios({
 			method: "get", 
-			url: `${url}/pine-input.json`, 
+			url: `${pineLnk}/pine-input.json`, 
 			responseType: "json"
 		})).data;
 		
 		res.send(pineInput);
 	} catch (e) {
-		console.log(e);
 		console.log(`GET /pine/form/${id} `, e.message);
 		res.sendStatus(500);
 	}
