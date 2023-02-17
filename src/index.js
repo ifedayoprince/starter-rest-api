@@ -7,10 +7,12 @@ import fillDataBaseWithPines from './../fill-db.js';
  
 const app = express();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use('/core', coreRouter);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/pine', pineRouter);
+app.use('/core', coreRouter);
+
 
 // Fill database
 app.post('/fill-db', authenticateUser, async (req, res) => {

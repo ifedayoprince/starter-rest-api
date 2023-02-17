@@ -43,7 +43,7 @@ pRouter.post('/:id', authenticateUser, async (req, res) => {
 });
 
 // Get the input form details 
-pRouter.get('/input-form/:id', authenticateUser, async (req, res) => {
+pRouter.get('/form/:id', authenticateUser, async (req, res) => {
 	const id = req.params.id;
 	
 	try {
@@ -57,8 +57,9 @@ pRouter.get('/input-form/:id', authenticateUser, async (req, res) => {
 		
 		res.send(pineInput);
 	} catch (e) {
-		console.log(`GET /pines/${id}/form `, e.message);
-		res.sendStatus(401);
+		console.log(e);
+		console.log(`GET /pine/form/${id} `, e.message);
+		res.sendStatus(500);
 	}
 })
 
@@ -79,7 +80,7 @@ pRouter.post('/protocol', authenticateUser, async (req, res) => {
 		await protocolsCollection.set(protoObject.id, protoObject);
 	} catch (e)	{
 		console.log(`POST /protocol `, e.message);
-		res.sendStatus(401);
+		res.sendStatus(500);
 	} 
 })
 
@@ -93,7 +94,7 @@ pRouter.get('/protocol/:id', authenticateUser, async (req, res) => {
 		res.send(url);
 	} catch (e) {
 		console.log(`GET /protocol `, e.message);
-		res.sendStatus(401);
+		res.sendStatus(500);
 	}
 })
 
@@ -107,7 +108,7 @@ pRouter.get('/notes/:id', authenticateUser, async (req, res) => {
 		res.send(note);
 	} catch (e) {
 		console.log(`GET /notes/${id} `, e.message);
-		res.sendStatus(401);
+		res.sendStatus(500);
 	}
 })
 
@@ -127,7 +128,7 @@ pRouter.post('/notes/new', authenticateUser, async (req, res) => {
 	} catch (e) {
 		// console.log(e);
 		console.log(`POST /notes `, e.message);
-		res.sendStatus(401);
+		res.sendStatus(500);
 	}
 })
 

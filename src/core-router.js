@@ -25,7 +25,7 @@ router.get("/all", async (req, res) => {
   res.send(pines);
 	} catch (e) {
 		console.log('GET /all ', e.message);
-		res.sendStatus(401);
+		res.sendStatus(500);
 	}
 });
 
