@@ -14,7 +14,7 @@ app.use('/pine', pineRouter);
 
 // Fill database
 app.post('/fill-db', authenticateUser, async (req, res) => {
-	fillDataBaseWithPines();
+	fillDataBaseWithPines(res);
 })
 
 // Create new bearer token
