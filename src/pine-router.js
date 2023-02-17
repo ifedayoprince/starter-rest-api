@@ -124,7 +124,8 @@ pRouter.post('/notes', authenticateUser, async (req, res) => {
 		
 		res.send({id});
 	} catch (e) {
-		console.log(`POST /notes `, e.message);
+		console.log(e);
+		//console.log(`POST /notes `, e.message);
 		res.sendStatus(401);
 	}
 })
