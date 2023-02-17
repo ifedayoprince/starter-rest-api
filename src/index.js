@@ -1,7 +1,7 @@
 import express from 'express';
 // import db from '@cyclic.sh/dynamodb';
 import { router as coreRouter } from './core-router.js';
-import { router as pineRouter } from './pine-router.js';
+import { pRouter as pineRouter } from './pine-router.js';
 import { generateAccessToken, authenticateUser} from "./auth.js";
 import fillDataBaseWithPines from './../fill-db.js';
  
@@ -43,3 +43,5 @@ const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`src/index.js listening on ${port}`)
 })
+
+

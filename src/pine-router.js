@@ -7,7 +7,7 @@ import { authenticateUser } from './auth.js';
 import axios from 'axios';
 
 // Initialize Express router
-export const router = Router();
+export const pRouter = Router();
 
 // Initialize AWS DynamoDB
 const db = DynamoDb(process.env.CYCLIC_DB);
@@ -76,7 +76,7 @@ router.post('/protocol', authenticateUser, async (req, res) => {
 		}
 		
 		await protocolsCollection.set(protoObject.id, protoObject);
-	} catch (e) {	
+	} catch (e)	{
 		console.log(`POST /protocol `, e.message);
 		res.sendStatus(401);
 	} 

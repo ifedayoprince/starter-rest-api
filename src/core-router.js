@@ -34,9 +34,9 @@ router.get('/:pid', async (req, res) => {
 	const pineId = req.params.pid;
 	
 	try {
-		const { url } = (await pinesCollection.get(pineId)).props;
+		const pine = (await pinesCollection.get(pineId)).props;
 		
-		res.send({url});
+		res.send(pine);
 	} catch (e) {
 		console.error(`GET '/${pineId}' `, e.message);
 		res.sendStatus(404);
