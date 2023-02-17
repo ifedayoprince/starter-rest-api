@@ -83,6 +83,7 @@ pRouter.post('/protocol', authenticateUser, async (req, res) => {
 		}
 		
 		await protocolsCollection.set(protoObject.id, protoObject);
+		res.send(protoObject.id);
 	} catch (e)	{
 		console.log(`POST /protocol `, e.message);
 		res.sendStatus(500);
