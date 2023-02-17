@@ -16,7 +16,7 @@ const notesCollection = db.collection("notes");
 const protocolsCollection = db.collection('protocols');
 
 // Links an ID to the url of a hosted pine
-router.post('/:id', authenticateUser, async (req, res) => {
+pRouter.post('/:id', authenticateUser, async (req, res) => {
 	const id = req.params.id;
 	var pineObject = {
 		url: req.body.pineUrl
@@ -43,7 +43,7 @@ router.post('/:id', authenticateUser, async (req, res) => {
 });
 
 // Get the input form details 
-router.get('/:id/form', authenticateUser, async (req, res) => {
+pRouter.get('/:id/form', authenticateUser, async (req, res) => {
 	const id = req.params.id;
 	
 	try {
@@ -63,7 +63,7 @@ router.get('/:id/form', authenticateUser, async (req, res) => {
 })
 
 // Store the Pino Protocol on the server and return an id
-router.post('/protocol', authenticateUser, async (req, res) => {
+pRouter.post('/protocol', authenticateUser, async (req, res) => {
 //	const pineId = req.body.pineId;
 	const proto = req.body.protocol;
 	try {
@@ -83,7 +83,7 @@ router.post('/protocol', authenticateUser, async (req, res) => {
 })
 
 // Retrieve a url of the protocol stored on the server
-router.get('/protocol/:id', authenticateUser, async (req, res) => {
+pRouter.get('/protocol/:id', authenticateUser, async (req, res) => {
 	let id = req.params.id;
 	
 	try {
@@ -97,7 +97,7 @@ router.get('/protocol/:id', authenticateUser, async (req, res) => {
 })
 
 // Retrieve text stored on the server 
-router.get('/notes/:id', authenticateUser, async (req, res) => {
+pRouter.get('/notes/:id', authenticateUser, async (req, res) => {
 	const id = req.params.id;
 	
 	try {
@@ -111,7 +111,7 @@ router.get('/notes/:id', authenticateUser, async (req, res) => {
 })
 
 // Store a note on the server
-router.post('/notes', authenticateUser, async (req, res) => {
+pRouter.post('/notes', authenticateUser, async (req, res) => {
 	var body = req.body;
 	
 	try {
