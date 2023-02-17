@@ -119,12 +119,14 @@ pRouter.post('/notes', authenticateUser, async (req, res) => {
 		
 		const id = uuidv4();
 		body.id = id;
-		
+		console.log('close ', id);
 		await notesCollection.set(id, body);
 		
-		res.send(id);
+		res.send({id});
 	} catch (e) {
 		console.log(`POST /notes `, e.message);
 		res.sendStatus(401);
 	}
 })
+
+
