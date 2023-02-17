@@ -3,6 +3,7 @@ import express from 'express';
 import { router as coreRouter } from './core-router.js';
 import { router as pineRouter } from './pine-router.js';
 import { generateAccessToken } from "./auth.js";
+import fillDataBaseWithPines from './../fill-db.js';
 
 const app = express();
 
@@ -10,6 +11,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/core', coreRouter);
 app.use('/pine', pineRouter);
+
+// Fill database
+app.post('/fill-db', authenticateUser, async (req, res) => {
+	fillDataBaseWithPines();
+})
 
 // Create new bearer token
 app.post("/super-user", (req, res) => {

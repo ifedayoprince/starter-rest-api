@@ -15,12 +15,17 @@ const pinesCollection = db.collection("pines");
 // Get all pines
 router.get("/all", async (req, res) => {
   const { pinesMetadata } = await pinesCollection.list();
-	console.log(pinesMetadata)
+// console.log(pinesMetadata)
+	try {
   const pines = await Promise.all(
     pinesMetadata.map(async ({ key }) => (await pinesCollection.get(key)).props)
   );
 
   res.send(pines);
+	} catch (e) {
+		console.log('GET /all ', e.message);
+		res.sendStatus(401);
+	}
 });
 
 // Get pine by id
