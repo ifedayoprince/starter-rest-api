@@ -65,6 +65,8 @@ pRouter.get('/:id/form', authenticateUser, async (req, res) => {
 // Store the Pino Protocol on the server and return an id
 pRouter.post('/protocol', authenticateUser, async (req, res) => {
 //	const pineId = req.body.pineId;
+	res.send('found');
+	return;
 	const proto = req.body.protocol;
 	try {
 		//let pineUrl = (await axios(`/core/${pineId}`)).data;
@@ -111,7 +113,7 @@ pRouter.get('/notes/:id', authenticateUser, async (req, res) => {
 })
 
 // Store a note on the server
-pRouter.post('/notes', authenticateUser, async (req, res) => {
+pRouter.post('/notes/new', authenticateUser, async (req, res) => {
 	var body = req.body;
 	
 	try {
@@ -124,8 +126,8 @@ pRouter.post('/notes', authenticateUser, async (req, res) => {
 		
 		res.send({id});
 	} catch (e) {
-		console.log(e);
-		//console.log(`POST /notes `, e.message);
+		// console.log(e);
+		console.log(`POST /notes `, e.message);
 		res.sendStatus(401);
 	}
 })
