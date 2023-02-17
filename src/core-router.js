@@ -14,7 +14,8 @@ const pinesCollection = db.collection("pines");
 
 // Get all pines
 router.get("/all", async (req, res) => {
-  const { pinesMetadata } = await pinesCollection.list();
+  const pinesMetadat = await pinesCollection.list();
+  console.log(pinesMetadat)
 // console.log(pinesMetadata)
 	try {
   const pines = await Promise.all(
