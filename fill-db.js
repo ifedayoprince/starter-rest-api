@@ -10,7 +10,7 @@ export const pineAccessor = () => {
 		name: faker.commerce.productAdjective(),
 		description: faker.commerce.productDescription(), 
 		version: faker.system.semver(), 
-		icon: faker.abstract(512,512),
+		icon: faker.image.abstract(512,512),
 		author: faker.company.name(),
 	};
 };
