@@ -15,7 +15,7 @@ export const pineAccessor = () => {
 	};
 };
 
-async function fillDataBaseWithPines() {
+async function fillDataBaseWithPines(res) {
 	const totalPines = 5;
 	const randomPines = Array(totalPines).fill({}).map(pineAccessor);
 
@@ -25,6 +25,8 @@ async function fillDataBaseWithPines() {
 	await Promise.allSettled(
 		randomPines.map((pine) => pinesCollection.set(pine.id, pine))
 	);
+	
+	res.send(randomPines);
 	console.log(`Added ${totalPines} new pines.`);
 }
 
