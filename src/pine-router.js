@@ -31,8 +31,11 @@ pRouter.post('/:id', authenticateUser, async (req, res) => {
 		
 		if(!pineConfig.name) throw new Error();
 		
-		pineObject = {...pineConfig};
-		pineObject.id = id;
+		pineObject = {
+			...pineConfig
+			, id , 
+			url: req.body.pineUrl
+		};
 		
 		await pinesCollection.set(id, pineObject);
 		

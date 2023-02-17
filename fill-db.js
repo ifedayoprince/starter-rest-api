@@ -12,6 +12,7 @@ export const pineAccessor = () => {
 		version: faker.system.semver(), 
 		icon: faker.image.abstract(512,512),
 		author: faker.company.name(),
+		url: faker.internet.url()
 	};
 };
 
