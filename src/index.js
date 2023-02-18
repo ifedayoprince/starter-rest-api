@@ -4,11 +4,14 @@ import { router as coreRouter } from './core-router.js';
 import { pRouter as pineRouter } from './pine-router.js';
 import { generateAccessToken, authenticateUser} from "./auth.js";
 import fillDataBaseWithPines from './../fill-db.js';
- 
+import cors from 'cors';
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.options('*', cors());
 
 app.use('/pine', pineRouter);
 app.use('/core', coreRouter);
