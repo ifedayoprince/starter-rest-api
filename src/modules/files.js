@@ -8,7 +8,7 @@ export const fRouter = new Router();
 fRouter.post('/new', authenticateUser, 
 	handleUploadMiddleware.array('input_files', 6),
   (req, res) => {
-   if (!req.files) {
+   if (req.files) {
 	res.send({
      msg: "Uploaded!",
      files: req.files
