@@ -6,9 +6,9 @@ export const fRouter = new Router();
 
 // Accept maximum 5 files
 fRouter.post('/new', authenticateUser, 
-	handleUploadMiddleware.array('input_files', 6),
+	handleUploadMiddleware.array('files', 6),
   (req, res) => {
-  	console.log(req.file);
+  	console.log(req);
    if (req.files) {
 	res.send({
      msg: "Uploaded!",
