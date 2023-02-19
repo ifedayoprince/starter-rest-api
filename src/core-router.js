@@ -3,7 +3,7 @@
 import { Router } from "express";
 import DynamoDb from '@cyclic.sh/dynamodb';
 import { v4 as uuidv4 } from "uuid";
-import { authenticateUser, superuser, generateAccessToken} from './auth.js';
+import { authenticateUser, superUser, generateAccessToken} from './auth.js';
 import fillDataBaseWithPines from './../fill-db.js';
 
 // Initialize Express router
