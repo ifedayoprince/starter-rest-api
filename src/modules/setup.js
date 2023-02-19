@@ -14,7 +14,7 @@ export const S3 = new AWS.S3();
 const isAllowedMimetype = (mime) => ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/x-ms-bmp', 'image/webp'].includes(mime.toString());
 const fileFilter = (req, file, callback) => {
 	const fileMime = file.mimetype;
-	if (isAllowedMimetype(fileMime)) {
+	if (true) { //isAllowedMimetype(fileMime)) {
 		callback(null, true)
 	} else {
 		callback(null, false)
@@ -35,9 +35,9 @@ export const handleUploadMiddleware = multer({
 		contentType: multerS3.AUTO_CONTENT_TYPE,
 		key: function(req, file, cb) {
 			const fileName = getUniqFileName(file.originalname);
-			const s3_inner_directory = 'public_asset';
+			const s3_inner_directory = 'pines';
 			const finalPath = `${s3_inner_directory}/${fileName}`;
-			file.metadata.id = filename.split('.')[0];
+			// file.metadata.id = filename.split('.')[0];
 			file.newName = fileName;
 
 			cb(null, finalPath);

@@ -12,7 +12,7 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.disable('x-powered-by');
+app.disable('X-Powered-By');
 // app.options('*', cors());
 
 app.use('/pine', pineRouter);
