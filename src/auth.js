@@ -27,3 +27,13 @@ export function generateAccessToken(username) {
 	// Expires in 30 days
   return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: "2592000s" });
 }
+
+export function superUser(req, res, next) {
+	if(req.body.password == process.env.SUPERUSER) {
+		console.log('Authenticated as SuperUser.')
+		next();
+	} else {
+		console.log('SuperUser access required.')
+		res.sendStatus(401);
+	}
+}

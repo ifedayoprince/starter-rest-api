@@ -24,6 +24,10 @@
     "slugify": "^1.6.5", 
     "@faker-js/faker": "^7.5.0", 
     "short-uuid": "^4.2.2", 
-    "cors": "^2.8.5"
+    "cors": "^2.8.5", 
+    "helmet": "^6.0.1", 
+    "multer": "", 
+    "aws-sdk": "", 
+    "multer-s3": "^3.0.1"
   }
 }

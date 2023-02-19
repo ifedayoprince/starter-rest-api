@@ -19,8 +19,8 @@ const protocolsCollection = db.collection('protocols');
 const sUid = short();
 
 // Links an ID to the url of a hosted pine
-pRouter.post('/:id', authenticateUser, async (req, res) => {
-	const id = req.params.id;
+pRouter.post('/new', authenticateUser, async (req, res) => {
+	const id = req.body.id;
 	var pineObject = {
 		url: req.body.pineUrl
 	} 
@@ -140,5 +140,3 @@ pRouter.get('/notes/:id', authenticateUser, async (req, res) => {
 		res.sendStatus(500);
 	}
 })
-
-
