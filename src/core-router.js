@@ -54,12 +54,12 @@ router.get('/new-id', authenticateUser, async (req, res) => {
 // Super User specific routes 
 
 // Fill database
-app.post('/su/fill', superUser, async (req, res) => {
+router.post('/su/fill', superUser, async (req, res) => {
 	fillDataBaseWithPines(res, req.body.password);
 })
 
 // Clear a database
-app.post('/su/clean', superUser, async (req, res) => {
+router.post('/su/clean', superUser, async (req, res) => {
 	try {
 		let daB = db.collection(req.body.db);
 		
@@ -69,7 +69,7 @@ app.post('/su/clean', superUser, async (req, res) => {
 	}
 })
 // Create new bearer token
-app.post("/su/new", superUser, (req, res) => {
+router.post("/su/new", superUser, (req, res) => {
 	const username = req.body.username;
     const password = req.body.password;
 	
