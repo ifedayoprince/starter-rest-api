@@ -4,11 +4,11 @@ import multerS3 from "multer-s3";
 //import { Request } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-AWS.config.update({
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_KEY,
-	signatureVersion: 'v4'
-});
+//AWS.config.update({
+//	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//	secretAccessKey: process.env.AWS_SECRET_KEY,
+//	signatureVersion: 'v4'
+//});
 
 export const S3 = new AWS.S3();
 const isAllowedMimetype = (mime) => ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/x-ms-bmp', 'image/webp'].includes(mime.toString());
@@ -30,7 +30,7 @@ export const handleUploadMiddleware = multer({
 	fileFilter,
 	storage: multerS3({
 		s3: S3,
-		bucket: process.env.AWS_BUCKET_NAME,
+		bucket: process.env.CYCLIC_BUCKET_NAME,
 		acl: 'public-read',
 		contentType: multerS3.AUTO_CONTENT_TYPE,
 		key: function(req, file, cb) {
