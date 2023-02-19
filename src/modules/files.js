@@ -5,7 +5,7 @@ import { S3, handleUploadMiddleware } from './setup.js';
 export const fRouter = new Router();
 
 // Accept maximum 5 files
-fRouter.post('/new', authenticateUser, 
+fRouter.post('/new', 
 	handleUploadMiddleware.array('files', 6),
   (req, res) => {
   	console.log(req);
