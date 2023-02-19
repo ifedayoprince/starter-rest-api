@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import multer, { FileFilterCallback } from "multer"
+import multer from "multer"
 import multerS3 from "multer-s3";
 import { Request } from 'express';
 import { v4 as uuidv4 } from 'uuid';
