@@ -26,9 +26,9 @@ const upload = multer({
 
 // Accept maximum 5 files
 fRouter.post('/new', 
-	upload.array('files', 6),
+	upload.array('files', 3),
   (req, res) => {
-  	console.log(req);
+  	// console.log(req);
    if (req.files) {
 	res.send({
      msg: "Uploaded!",
