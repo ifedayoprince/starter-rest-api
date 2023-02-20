@@ -3,7 +3,7 @@
 import { Router } from "express";
 import DynamoDb from '@cyclic.sh/dynamodb';
 import { v4 as uuidv4 } from "uuid";
-import { authenticateUser } from './auth.js';
+import { authenticateUser, superUser} from './auth.js';
 import axios from 'axios';
 import short from 'short-uuid';
 
@@ -19,7 +19,7 @@ const protocolsCollection = db.collection('protocols');
 const sUid = short();
 
 // Links an ID to the url of a hosted pine
-pRouter.post('/new', authenticateUser, async (req, res) => {
+pRouter.post('/new', superUser, async (req, res) => {
 	const id = req.body.id;
 	var pineObject = {
 		url: req.body.pineUrl

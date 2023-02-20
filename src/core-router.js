@@ -14,7 +14,7 @@ const db = DynamoDb(process.env.CYCLIC_DB);
 const pinesCollection = db.collection("pines");
 
 // Get all pines
-router.get("/all", async (req, res) => {
+router.get("/all", authenticateUser, async (req, res) => {
   const { results: pinesMetadata } = await pinesCollection.list();
   
 // console.log(pinesMetadata)
@@ -31,7 +31,7 @@ router.get("/all", async (req, res) => {
 });
 
 // Get pine by id
-router.get('/:pid', async (req, res) => {
+router.get('/:pid', authenticateUser, async (req, res) => {
 	const pineId = req.params.pid;
 	
 	try {
@@ -45,7 +45,7 @@ router.get('/:pid', async (req, res) => {
 })
 
 // Generate a UUID for uploading pines
-router.get('/new-id', authenticateUser, async (req, res) => {
+router.get('/new-id', superUser, async (req, res) => {
 	const id = uuidv4();
 	
 	res.send({id});
