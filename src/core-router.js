@@ -71,8 +71,7 @@ router.post('/su/clean', superUser, async (req, res) => {
 // Create new bearer token
 router.post("/su/new", superUser, (req, res) => {
 	const username = req.body.username;
-    const password = req.body.password;
-	
+    
 	try {
 		const token = generateAccessToken({username});
 		res.send({ token }); 
