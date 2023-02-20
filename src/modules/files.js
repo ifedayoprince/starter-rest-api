@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authenticateUser } from './../auth.js';
-// import { S3, handleUploadMiddleware } from './setup.js';
+import { S3, handleUploadMiddleware } from './setup.js';
 import { S3Client } from '@aws-sdk/client-s3';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
@@ -26,7 +26,7 @@ const upload = multer({
 
 // Accept maximum 5 files
 fRouter.post('/new', 
-	upload.array('files', 3),
+	handleUploadMiddleware.array('files', 3),
   (req, res) => {
   	// console.log(req);
    if (req.files) {
