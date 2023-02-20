@@ -31,16 +31,15 @@ export const handleUploadMiddleware = multer({
 	storage: multerS3({
 		s3: S3,
 		bucket: process.env.CYCLIC_BUCKET_NAME,
-		acl: 'public-read',
 		contentType: multerS3.AUTO_CONTENT_TYPE,
 		key: function(req, file, cb) {
 			const fileName = getUniqFileName(file.originalname);
-			const s3_inner_directory = 'pines';
-			const finalPath = `${s3_inner_directory}/${fileName}`;
-			file.id = fileName.split('.')[0];
+			// const s3_inner_directory = 'pines';
+			//const finalPath = `${s3_inner_directory}/${fileName}`;
+			let fileId = fileName.split('.')[0];
 			file.newName = fileName;
 
-			cb(null, finalPath);
+			cb(null, fileId);
 		}
 	})
 });
