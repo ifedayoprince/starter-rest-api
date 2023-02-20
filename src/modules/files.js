@@ -49,7 +49,7 @@ fRouter.get('/:id', authenticateUser, async (req, res)=>{
 	let fileId = req.params.id;
 	
 	try {
-    let s3File = await search(file)
+    let s3File = await search(fileId);
 
     res.set('Content-Type', s3File.ContentType)
     res.send(s3File.Body.transformToString()).end()
