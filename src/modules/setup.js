@@ -1,5 +1,5 @@
 import { S3Client } from '@aws-sdk/client-s3';
-import multerS3 from 'multer-s3';
+import multerS3 from 'multer-s3' ;
 import multer from 'multer';
 //import { Request } from 'express';
 import { v4 as uuidv4 } from 'uuid';
@@ -37,7 +37,7 @@ export const handleUploadMiddleware = multer({
 			const fileName = getUniqFileName(file.originalname);
 			const s3_inner_directory = 'pines';
 			const finalPath = `${s3_inner_directory}/${fileName}`;
-			file.metadata.id = filename.split('.')[0];
+			file.metadata.id = fileName.split('.')[0];
 			file.newName = fileName;
 
 			cb(null, finalPath);
