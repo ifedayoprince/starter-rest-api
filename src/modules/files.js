@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { authenticateUser } from './../auth.js';
-import { search, handleUploadMiddleware } from './setup.js';
-import { S3Client } from '@aws-sdk/client-s3';
+import { S3, handleUploadMiddleware } from './setup.js';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 
@@ -49,10 +49,15 @@ fRouter.get('/:id', authenticateUser, async (req, res)=>{
 	let fileId = req.params.id;
 	
 	try {
-    let s3File = await search(fileId);
+		let command = new GetObjectCommand({
+		Bucket: process.env.CYCLIC_BUCKET_NAME,
+		Key: fileId,
+	});
+	
+    let s3File = await S3.send(command);
 
     res.set('Content-Type', s3File.ContentType)
-    res.send(s3File.Body.transformToString()).end()
+    res.send(s3File.Body.toString());
   } catch (error) {
     if (error.code === 'NoSuchKey') {
       console.log(`No such key ${filename}`)
