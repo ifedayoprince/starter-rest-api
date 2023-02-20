@@ -45,7 +45,7 @@ router.get('/:pid', authenticateUser, async (req, res) => {
 })
 
 // Generate a UUID for uploading pines
-router.get('/new-id', superUser, async (req, res) => {
+router.post('/new-id', superUser, async (req, res) => {
 	const id = uuidv4();
 	
 	res.send({id});
