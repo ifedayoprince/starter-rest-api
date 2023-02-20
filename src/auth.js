@@ -30,7 +30,8 @@ export function generateAccessToken(username) {
 
 export function superUser(req, res, next) {
 	if(req.body.password == process.env.SUPER_USER) {
-		console.log('Authenticated as SuperUser.')
+		console.log('Authenticated as SuperUser.');
+		next();
 	} else {
 		console.log('SuperUser access required.')
 		res.sendStatus(401);
