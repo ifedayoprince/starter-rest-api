@@ -50,5 +50,5 @@ export async function search(fileId) {
 		Key: fileId,
 	});
 	
-	return s3.send(command);
+	return S3.send(command);
 }
