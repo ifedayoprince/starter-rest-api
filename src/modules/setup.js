@@ -1,4 +1,4 @@
-import { S3Client } from '@aws-sdk/client-s3';
+import { S3Client, GetObjectCommand} from '@aws-sdk/client-s3';
 import multerS3 from 'multer-s3' ;
 import multer from 'multer';
 //import { Request } from 'express';
@@ -45,8 +45,10 @@ export const handleUploadMiddleware = multer({
 });
 
 export async function search(fileId) {
-	return S3.getObject({
+	let command = new GetObjectCommand({
 		Bucket: process.env.CYCLIC_BUCKET_NAME,
 		Key: fileId,
-	}).promise();
+	});
+	
+	return s3.send(command);
 }
