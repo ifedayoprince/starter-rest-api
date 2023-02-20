@@ -4,7 +4,7 @@ import { S3, handleUploadMiddleware } from './setup.js';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
-
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export const fRouter = new Router();
 
@@ -54,11 +54,14 @@ fRouter.get('/:id', authenticateUser, async (req, res)=>{
 		Key: fileId,
 	});
 	
-    let s3File = await S3.send(command);
+	let signedUrl = await getSignedUrl(S3, command, {expiresIn: 3600});
+	
+	res.send({url: signedUrl});
+    // let s3File = await S3.send(command);
 
-    res.set('Content-Type', s3File.ContentType);
-    console.log(s3File.Body);
-    res.send(await s3File.Body.transformToString());
+    // res.set('Content-Type', s3File.ContentType);
+    // console.log(s3File.Body);
+    //res.send(await s3File.Body.transformToString());
   } catch (error) {
     if (error.code === 'NoSuchKey') {
       console.log(`No such key ${filename}`)
