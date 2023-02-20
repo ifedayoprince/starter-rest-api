@@ -57,7 +57,7 @@ fRouter.get('/:id', authenticateUser, async (req, res)=>{
     let s3File = await S3.send(command);
 
     res.set('Content-Type', s3File.ContentType)
-    res.send(s3File.Body.transformToString());
+    res.send(await s3File.Body.transformToString());
   } catch (error) {
     if (error.code === 'NoSuchKey') {
       console.log(`No such key ${filename}`)
