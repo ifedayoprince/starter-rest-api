@@ -1,5 +1,4 @@
-import AWS from 'aws-sdk';
-import multer from "multer"
+import { S3Client } from '@aws-sdk/client-s3';
 import multerS3 from "multer-s3";
 //import { Request } from 'express';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 //	signatureVersion: 'v4'
 //});
 
-export const S3 = new AWS.S3();
+export const S3 = new S3Client();
 const isAllowedMimetype = (mime) => ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/x-ms-bmp', 'image/webp'].includes(mime.toString());
 const fileFilter = (req, file, callback) => {
 	const fileMime = file.mimetype;
