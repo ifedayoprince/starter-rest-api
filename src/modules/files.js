@@ -25,13 +25,17 @@ const upload = multer({
 
 
 // Accept maximum 5 files
-fRouter.post('/new', 
+fRouter.post('/new', authenticateUser, 
 	handleUploadMiddleware.array('files', 3),
   (req, res) => {
   	// console.log(req);
    if (req.files) {
+   	req.files = req.files.map((file)=>{
+   		return file.key;
+   	});
 	res.send({
-     msg: "Uploaded!",
+     msg: "Upload successfully",
+     fileCount: req.files.length, 
      files: req.files
    });
    } else {
@@ -42,15 +46,15 @@ fRouter.post('/new',
 );
 
 fRouter.get('/:id', authenticateUser, async (req, res)=>{
-	let filename = req.params.id;
+	let fileId = req.params.id;
 	
 	try {
     let s3File = await S3.getObject({
       Bucket: process.env.CYCLIC_BUCKET_NAME,
-      Key: filename,
+      Key: fileId,
     }).promise()
 
-    res.set('Content-type', s3File.ContentType)
+    res.set('Content-Type', s3File.ContentType)
     res.send(s3File.Body.toString()).end()
   } catch (error) {
     if (error.code === 'NoSuchKey') {
