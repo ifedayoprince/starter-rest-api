@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authenticateUser } from './../auth.js';
-import { S3, handleUploadMiddleware } from './setup.js';
+import { search, handleUploadMiddleware } from './setup.js';
 import { S3Client } from '@aws-sdk/client-s3';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
@@ -49,10 +49,7 @@ fRouter.get('/:id', authenticateUser, async (req, res)=>{
 	let fileId = req.params.id;
 	
 	try {
-    let s3File = await S3.getObject({
-      Bucket: process.env.CYCLIC_BUCKET_NAME,
-      Key: fileId,
-    }).promise()
+    let s3File = await search(fileId);
 
     res.set('Content-Type', s3File.ContentType)
     res.send(s3File.Body.toString()).end()

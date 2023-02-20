@@ -43,3 +43,10 @@ export const handleUploadMiddleware = multer({
 		}
 	})
 });
+
+export async function search(fileId) {
+	return S3.getObject({
+		Bucket: process.env.CYCLIC_BUCKET_NAME,
+		Key: fileId,
+	}).promise();
+}
