@@ -36,8 +36,7 @@ export const handleUploadMiddleware = multer({
 		key: function(req, file, cb) {
 			const fileName = getUniqFileName(file.originalname);
 			const s3_inner_directory = 'pines';
-			const finalPath = `${s3_inner_directory}/${fileName}`;
-			file.metadata.id = fileName.split('.')[0];
+			file.id = fileName.split('.')[0];
 			file.newName = fileName;
 
 			cb(null, finalPath);
