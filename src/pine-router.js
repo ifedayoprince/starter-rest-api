@@ -94,7 +94,7 @@ pRouter.post('/protocol/new', authenticateUser, async (req, res) => {
 })
 
 // Retrieve a url of the protocol stored on the server
-pRouter.get('/protocol/:id',  async (req, res) => {
+pRouter.get('/protocol/:id', authenticateUser, async (req, res) => {
 	let id = req.params.id;
 	
 	try {
