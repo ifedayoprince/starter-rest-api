@@ -65,8 +65,7 @@ router.post('/su/clean', superUser, async (req, res) => {
 		  TableName : req.body.db
 		};
 
-
-	db.deleteTable(params, function(err, data) {
+	db.delete(params, function(err, data) {
 		if (err) {
     		console.log("Unable to delete table. Error JSON:", JSON.stringify(err, null, 2));
     	} else {
