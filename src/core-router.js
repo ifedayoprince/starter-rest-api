@@ -61,8 +61,18 @@ router.post('/su/fill', superUser, async (req, res) => {
 // Clear a database
 router.post('/su/clean', superUser, async (req, res) => {
 	try {
-		let daB = db.collection(req.body.db);
-		
+		var params = { 
+		  TableName : req.body.db
+		};
+
+
+	db.deleteTable(params, function(err, data) {
+		if (err) {
+    		console.log("Unable to delete table. Error JSON:", JSON.stringify(err, null, 2));
+    	} else {
+    		console.log("Deleted table. Table description JSON:", JSON.stringify(data, null, 2));
+    	}
+	}); 
 	} catch (e) {
 		console.log(`POST /su/clean/${req.body.db} `, e.message);
 		res.sendStatus(500)
