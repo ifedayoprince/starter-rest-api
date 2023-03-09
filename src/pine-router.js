@@ -38,6 +38,9 @@ async function updatePine(req, res) {
 			id,
 			url: req.body.link
 		};
+		if(pineObject.icon) {
+			pineObject.icon = pineObject.icon.replace('%URL%',pineObject.url)
+		} 
 
 		await pinesCollection.set(id, pineObject);
 
