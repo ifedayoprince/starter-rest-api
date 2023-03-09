@@ -18,36 +18,50 @@ const protocolsCollection = db.collection('protocols');
 
 const sUid = short();
 
-// Links an ID to the url of a hosted pine
-pRouter.post('/new', superUser, async (req, res) => {
+async function updatePine(req, res) {
 	const id = req.body.id;
 	var pineObject = {
-		url: req.body.pineUrl
-	} 
-	
+		url: req.body.link
+	}
+
 	try {
 		const pineConfig = (await axios({
-			method: "get", 
-			url: `${pineObject.url}/pine-config.json`, 
+			method: "get",
+			url: `${pineObject.url}/pine-config.json`,
 			responseType: "json"
 		})).data;
-		
-		if(!pineConfig.name) throw new Error();
-		
+
+		if (!pineConfig.name) throw new Error();
+
 		pineObject = {
-			...pineConfig
-			, id , 
-			url: req.body.pineUrl
+			...pineConfig,
+			id,
+			url: req.body.link
 		};
-		
+
 		await pinesCollection.set(id, pineObject);
-		
+
 		res.send(pineObject);
 	} catch (e) {
 		console.log(`POST /${id} `, e.message);
 		res.sendStatus(500);
 	}
-});
+}
+// Links an ID to the url of a hosted pine
+pRouter.post('/new', superUser, updatePine);
+
+// Update Pine info 
+pRouter.put('/new', superUser, async (req, res)=>{
+	try {
+		if(!req.body.id && !req.body.link) throw new Error('Incomplete body.')
+		
+		await pinesCollection.delete(req.body.id);
+		updatePine(req, res);
+	} catch (e) {
+		console.log(`PUT /${req.body.id} : ${e.message}`);
+		res.sendStatus(500);
+	}
+})
 
 // Get the input form details 
 pRouter.get('/form/:id', authenticateUser, async (req, res) => {
