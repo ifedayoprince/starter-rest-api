@@ -17,17 +17,16 @@ const statsCollection = db.collection("stats");
 export async function setStat(req, res, stand) {
 	try {
 		var stat = (await statsCollection.get(req.params.id));
-		if(stat) {
-			stat = Number.parseInt(stat.props) + Number.parseInt(req.params.i);
-		} else {
-			stat = 1;
-		}
-		statsCollection.set(req.params.id, {count:stat});
+		var val = Number.parseInt(stat.props.count) + Number.parseInt(req.params.i);
+		
+		statsCollection.set(req.params.id, {count:val});
 		
 		if(stand) {
 			res.sendStatus(200);
-		}
+		} 
 	} catch (e) {
+		await statsCollection.set(req.params.id, {count: 1} )
+			
 		console.error(`PUT '/stats' `, e.message);
 		res.sendStatus(404);
 	}
