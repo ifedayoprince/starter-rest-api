@@ -12,6 +12,19 @@ export const router = Router();
 // Initialize AWS DynamoDB
 const db = DynamoDb(process.env.CYCLIC_DB);
 const pinesCollection = db.collection("pines");
+const statsCollection = db.collection("stats");
+
+export async function setStat(req, res) {
+	try {
+		var stat = (await statsCollection.get(req.params.id)).data;
+		stat = Number.parseInt(stat) + Number.parseInt(req.params.i);
+		
+		statsCollection.set(req.params.id, stat);
+	} catch (e) {
+		console.error(`PUT '/stats' `, e.message);
+		res.sendStatus(404);
+	}
+}
 
 // Get all pines
 router.get("/all", authenticateUser, async (req, res) => {
@@ -29,6 +42,25 @@ router.get("/all", authenticateUser, async (req, res) => {
 		res.sendStatus(500);
 	}
 });
+
+// Get statistics
+router.get('/stats', authenticateUser, async (req, res) => {
+	try {
+		let users = (await statsCollection.get('users')).data;
+		let posts = (await statsCollection.get('posts')).data;
+		let reviews = (await statsCollection.get('comments')).data;
+		
+		let stats = {users, posts, reviews}
+		res.send(stats);
+	} catch (e) {
+		console.error(`GET '/stats' `, e.message);
+		res.sendStatus(404);
+	}
+})
+
+// Update specific stats 
+router.put('/stats/:id/:i', authenticateUser, setStat)
+
 
 // Get pine by id
 router.get('/:pid', authenticateUser, async (req, res) => {

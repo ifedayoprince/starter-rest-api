@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { authenticateUser, superUser} from './auth.js';
 import axios from 'axios';
 import short from 'short-uuid';
+import {setStat} from './core-router.js';
 
 // Initialize Express router
 export const pRouter = Router();
@@ -100,6 +101,11 @@ pRouter.post('/protocol/new', authenticateUser, async (req, res) => {
 		}
 		
 		await protocolsCollection.set(protoObject.id, protoObject);
+		
+		setStat({params: {
+			id: "posts", 
+			i: 1
+		}});
 		res.send({
 			id: protoObject.id, 
 			shortId: sUid.fromUUID(protoObject.id)
