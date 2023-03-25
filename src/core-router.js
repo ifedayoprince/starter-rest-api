@@ -14,7 +14,7 @@ const db = DynamoDb(process.env.CYCLIC_DB);
 const pinesCollection = db.collection("pines");
 const statsCollection = db.collection("stats");
 
-export async function setStat(req, res) {
+export async function setStat(req, res, stand) {
 	try {
 		var stat = (await statsCollection.get(req.params.id));
 		if(stat) {
@@ -23,6 +23,10 @@ export async function setStat(req, res) {
 			stat = 1;
 		}
 		statsCollection.set(req.params.id, stat);
+		
+		if(stand) {
+			res.sendStatus(200);
+		}
 	} catch (e) {
 		console.error(`PUT '/stats' `, e.message);
 		res.sendStatus(404);
@@ -62,7 +66,7 @@ router.get('/stats', authenticateUser, async (req, res) => {
 })
 
 // Update specific stats 
-router.put('/stats/:id/:i', authenticateUser, setStat)
+router.put('/stats/:id/:i', authenticateUser, async (req, res)=>{setStat(req, res, true)})
 
 
 // Get pine by id
