@@ -18,11 +18,11 @@ export async function setStat(req, res, stand) {
 	try {
 		var stat = (await statsCollection.get(req.params.id));
 		if(stat) {
-			stat = Number.parseInt(stat.data) + Number.parseInt(req.params.i);
+			stat = Number.parseInt(stat.props) + Number.parseInt(req.params.i);
 		} else {
 			stat = 1;
 		}
-		statsCollection.set(req.params.id, stat);
+		statsCollection.set(req.params.id, {count:stat});
 		
 		if(stand) {
 			res.sendStatus(200);
@@ -53,9 +53,9 @@ router.get("/all", authenticateUser, async (req, res) => {
 // Get statistics
 router.get('/stats', authenticateUser, async (req, res) => {
 	try {
-		let users = (await statsCollection.get('users')).props;
-		let posts = (await statsCollection.get('posts')).props;
-		let reviews = (await statsCollection.get('comments')).props;
+		let users = (await statsCollection.get('users')).props.count;
+		let posts = (await statsCollection.get('posts')).props.count;
+		let reviews = (await statsCollection.get('comments')).props.count;
 		
 		let stats = {users, posts, reviews}
 		res.send(stats);
