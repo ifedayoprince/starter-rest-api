@@ -16,9 +16,12 @@ const statsCollection = db.collection("stats");
 
 export async function setStat(req, res) {
 	try {
-		var stat = (await statsCollection.get(req.params.id)).data;
-		stat = Number.parseInt(stat) + Number.parseInt(req.params.i);
-		
+		var stat = (await statsCollection.get(req.params.id));
+		if(stat) {
+			stat = Number.parseInt(stat.data) + Number.parseInt(req.params.i);
+		} else {
+			stat = 1;
+		}
 		statsCollection.set(req.params.id, stat);
 	} catch (e) {
 		console.error(`PUT '/stats' `, e.message);
