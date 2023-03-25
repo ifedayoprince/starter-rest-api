@@ -57,7 +57,11 @@ router.get('/stats', authenticateUser, async (req, res) => {
 		let posts = (await statsCollection.get('posts')).data;
 		let reviews = (await statsCollection.get('comments')).data;
 		
-		let stats = {users, posts, reviews}
+		let stats = {
+			users: users, 
+			posts: posts, 
+			reviews: reviews
+		}
 		res.send(stats);
 	} catch (e) {
 		console.error(`GET '/stats' `, e.message);
