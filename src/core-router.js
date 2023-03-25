@@ -17,9 +17,10 @@ const statsCollection = db.collection("stats");
 export async function setStat(req, res, stand) {
 	try {
 		var stat = (await statsCollection.get(req.params.id));
+		console.log(stat)
 		var val = Number.parseInt(stat.props.count) + Number.parseInt(req.params.i);
 		
-		statsCollection.set(req.params.id, {count:val});
+		statsCollection.set(req.params.id, {count:Number.parseInt(val)});
 		
 		if(stand) {
 			res.sendStatus(200);
