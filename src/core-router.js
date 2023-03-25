@@ -53,15 +53,11 @@ router.get("/all", authenticateUser, async (req, res) => {
 // Get statistics
 router.get('/stats', authenticateUser, async (req, res) => {
 	try {
-		let users = (await statsCollection.get('users')).data;
-		let posts = (await statsCollection.get('posts')).data;
-		let reviews = (await statsCollection.get('comments')).data;
+		let users = (await statsCollection.get('users')).props;
+		let posts = (await statsCollection.get('posts')).props;
+		let reviews = (await statsCollection.get('comments')).props;
 		
-		let stats = {
-			users: users, 
-			posts: posts, 
-			reviews: reviews
-		}
+		let stats = {users, posts, reviews}
 		res.send(stats);
 	} catch (e) {
 		console.error(`GET '/stats' `, e.message);
@@ -70,7 +66,7 @@ router.get('/stats', authenticateUser, async (req, res) => {
 })
 
 // Update specific stats 
-router.put('/stats/:id/:i', authenticateUser, async (req, res)=>{setStat(req, res, true)})
+router.put('/stats/:id/:i', authenticateUser, async (req, res)=>{setStat(req, res, )})
 
 
 // Get pine by id
