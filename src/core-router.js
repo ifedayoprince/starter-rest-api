@@ -66,7 +66,7 @@ router.get('/stats', authenticateUser, async (req, res) => {
 })
 
 // Update specific stats 
-router.put('/stats/:id/:i', authenticateUser, async (req, res)=>{setStat(req, res, )})
+router.put('/stats/:id/:i', authenticateUser, async (req, res)=>{setStat(req, res, true)})
 
 
 // Get pine by id
