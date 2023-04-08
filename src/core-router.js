@@ -42,7 +42,7 @@ router.get("/all", authenticateUser, async (req, res) => {
   const pines = await Promise.all(
     pinesMetadata.map(async ({ key }) => (await pinesCollection.get(key)).props)
   );
-
+	setStats({params:{id:"starts", i: 1}}, res, false)
   res.send(pines);
 	} catch (e) {
 		console.log('GET /all ', e.message);
@@ -56,8 +56,9 @@ router.get('/stats', authenticateUser, async (req, res) => {
 		let users = (await statsCollection.get('users')).props.count;
 		let posts = (await statsCollection.get('posts')).props.count;
 		let reviews = (await statsCollection.get('comments')).props.count;
+		let starts = (await statsCollection.get('starts')).props.count;
 		
-		let stats = {users, posts, reviews}
+		let stats = {users, posts, reviews, starts}
 		res.send(stats);
 	} catch (e) {
 		console.error(`GET '/stats' `, e.message);
