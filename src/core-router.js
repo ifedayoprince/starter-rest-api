@@ -53,7 +53,7 @@ router.get("/all", authenticateUser, async (req, res) => {
 // Get statistics
 router.get('/stats', authenticateUser, async (req, res) => {
 	try {
-		statsCollection.set('starts', {count:5})
+		// statsCollection.set('starts', {count:5})
 		let users = (await statsCollection.get('users')).props.count;
 		let posts = (await statsCollection.get('posts')).props.count;
 		let reviews = (await statsCollection.get('comments')).props.count;
