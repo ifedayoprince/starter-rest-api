@@ -42,7 +42,7 @@ router.get("/all", authenticateUser, async (req, res) => {
   const pines = await Promise.all(
     pinesMetadata.map(async ({ key }) => (await pinesCollection.get(key)).props)
   );
-	setStats({params:{id:"starts", i: 1}}, res, false)
+	setStat({params:{id:"starts", i: 1}}, res, false)
   res.send(pines);
 	} catch (e) {
 		console.log('GET /all ', e.message);
