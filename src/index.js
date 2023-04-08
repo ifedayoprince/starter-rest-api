@@ -12,7 +12,7 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.disable('X-Powered-By');
+app.set("x-powered-by", "Tegribyte");
 // app.options('*', cors());
 
 app.use('/pine', pineRouter);
