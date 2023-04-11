@@ -25,7 +25,7 @@ export function authenticateUser(req, res, next) {
 export function generateAccessToken(username) {
 	
 	// Expires in 30 days
-  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: "2592000s" });
+  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: "5356800s" });
 }
 
 export function superUser(req, res, next) {
